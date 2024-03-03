@@ -19,7 +19,11 @@ class Material(models.Model):
     name_str = models.CharField(max_length=200)
     desc_str = models.CharField(max_length=750)
     cost = models.IntegerField(default=0)
+    def __str__(self) -> str:
+        return f"Material: {self.name_str}"
 class Ingredient(models.Model):
     material = models.ForeignKey(Material, on_delete=models.CASCADE)
     amount = models.IntegerField(default=1)
     unit = models.CharField(max_length=30)
+    def __str__(self) -> str:
+        return f"Ingredient:{self.material.name_str}"

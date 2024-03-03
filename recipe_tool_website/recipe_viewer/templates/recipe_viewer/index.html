@@ -1,0 +1,9 @@
+{% if material_list %}
+    <ul>
+    {% for material in material_list %}
+        <li><a href="{% url 'recipe_viewer:material_view' material.id %}">{{ material.name_str }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
