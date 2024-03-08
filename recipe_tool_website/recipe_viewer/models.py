@@ -1,24 +1,25 @@
 from django.db import models
-from enum import Enum
 
-class Units(Enum):
-    kgs  = 1
-    lbs = 2
-    g = 3
-    oz = 4
-    floz = 5
-    tbsp = 6
-    tsp = 7
-    gal = 8
+class Units(models.TextChoices):
+    kgs  = 'kgs'
+    lbs = 'lbs'
+    g = 'g'
+    oz = 'oz'
+    floz = 'floz'
+    tbsp = 'tbsp'
+    tsp = 'tsp'
+    gal = 'gal'
     #### Do some conversion math here in the enum
 
     def __str__(self) -> str:
         return str(self.name)
 # Create your models here.
 class Material(models.Model):
-    name_str = models.CharField(max_length=200)
-    desc_str = models.CharField(max_length=750)
-    cost = models.IntegerField(default=0)
+    name_str = models.CharField('Material Name', max_length=200)
+    desc_str = models.CharField('Description', max_length=750, blank=True)
+    cost = models.FloatField('Cost', default=0)
+    cost_unit = models.CharField(choices=Units.choices, default=Units.g, max_length=10)
+    cost_per_unit = models.FloatField('Cost Per Unit', default =0.0)
     def __str__(self) -> str:
         return f"Material: {self.name_str}"
 class Ingredient(models.Model):

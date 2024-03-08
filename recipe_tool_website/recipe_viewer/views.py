@@ -2,8 +2,9 @@ from django.shortcuts import render
 from django.http import HttpResponse, Http404, HttpRequest, HttpResponseRedirect
 from django.template import loader
 
+from django.views.generic.edit import CreateView
+
 from .models import Material, Ingredient
-from .forms import MaterialEditForm
 
 # Create your views here.
 def index(request):
@@ -22,12 +23,11 @@ def material_view(request, material_id):
     except Material.DoesNotExist:
         raise Http404("Material does not exist")
     return render(request, "recipe_viewer/material_view.html", context)
-def material_edit_view(request: HttpRequest, material_id):
-    if request.method == "POST":
-        form = MaterialEditForm(request.POST)
-        if form.is_valid():
-            return HttpResponseRedirect("")
-    else:
-        form = MaterialEditForm()
-    context = {"form": form}
-    return render(request, "recipe_viewer/material_edit.html", context)
+
+class MaterialCreateView(CreateView):
+    model = Material
+    fields = ["name_str", "desc_str", "cost", "cost_unit"]
+
+    def form_valid(self, form):
+        form.instance.cost_per_unit =
+        return super().form_valid(form)
