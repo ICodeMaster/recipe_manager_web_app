@@ -4,9 +4,10 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+
         {
             "name": "Python Debugger: Django",
-            "type": "debugpy",
+            "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}\\recipe_tool_website\\manage.py",
             "args": [
@@ -14,5 +15,19 @@
             ],
             "django": true
         },
+        {
+            "name": "Launch Firefox",
+            "type": "firefox",
+            "request": "launch",
+            "reAttach": true,
+            "url": "http://127.0.0.1:8000/recipe_viewer/",
+            "webRoot": "${workspaceFolder}"
+        },
+    ],
+    "compounds": [
+        {
+            "name": "Server/Client",
+            "configurations": ["Python Debugger: Django", "Launch Firefox"]
+        }
     ]
 }

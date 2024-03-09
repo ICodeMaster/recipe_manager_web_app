@@ -1,5 +1,11 @@
+<h1>Delete Material?</h1>
 <h1>{{material.name_str}}</h1>
 <p>Description:{{material.desc_str}}<br>
 Cost: {{material.cost}}<br>
 Cost Per Unit: {{material.cost_per_unit}} per {{material.cost_unit}}
 </p>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Delete">
+</form>
