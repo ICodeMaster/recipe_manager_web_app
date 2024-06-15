@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic import DetailView
 
-from .models import Material, Ingredient
+from .models import Material, Recipe
 
 # Create your views here.
 def index(request):
@@ -15,10 +15,11 @@ def index(request):
         "material_list": material_list,
     }
     return render(request, "recipe_viewer/index.html", context)
+
+### Material Views
 class MaterialDetailView(DetailView):
     model = Material
     template_name = "recipe_viewer/material_view.html"
-
 class MaterialCreateView(CreateView):
     model = Material
     fields = ["name_str", "desc_str", "cost", "cost_unit", "cost_unit_amount"]
@@ -35,3 +36,15 @@ class MaterialEditView(UpdateView):
 class MaterialDeleteView(DeleteView):
     model = Material
     success_url = reverse_lazy("recipe_viewer:index")
+
+### Recipe Views
+class RecipeCreateView(CreateView):
+    model = Recipe
+    fields = fields = ["name_str", "desc_str", "ingredients"]
+    success_url = reverse_lazy("recipe_viewer:index")
+    def form_valid(self, form):
+        return super().form_valid(form)
+class RecipeEditView(UpdateView):
+    model = Recipe
+    fields = ["name_str", "desc_str", "ingredients"]
+

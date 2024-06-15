@@ -1,5 +1,6 @@
 from django import forms
 
 
-class MaterialEditForm(forms.Form):
-    material_name = forms.CharField(label="Material Name:", max_length=100)
+class RecipeEditForm(forms.Form):
+    name_str = forms.CharField(label='Material Name: ', max_length=200)
+    desc_str = forms.CharField(label='Description: ', max_length=750, blank=True)

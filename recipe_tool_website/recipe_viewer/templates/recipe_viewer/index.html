@@ -3,7 +3,7 @@
     {% for material in material_list %}
         <tr>
             <td><a href="{% url 'recipe_viewer:material_view' material.id %}">{{ material.name_str }}</a></td>
-            <td><a href="{% url 'recipe_viewer:material_edit_view' material.id %}">Edit</a></td>
+            <td><a href="{% url 'recipe_viewer:material-edit-view' material.id %}">Edit</a></td>
             <td><a href="{% url 'recipe_viewer:material-delete-view' material.id %}">Delete</a></td>
         </tr>
     {% endfor %}
@@ -11,4 +11,19 @@
 {% else %}
     <p>No materials exist</p>
 {% endif %}
-<a href="{% url 'recipe_viewer:material_create_view' %}">Create Material</a>
+<a href="{% url 'recipe_viewer:material-create-view' %}">Create Material</a>
+<br><br>
+{% if recipe_list %}
+    <table>
+    {% for recipe in recipe_list %}
+        <tr>
+            <td><a href="{% url 'recipe_viewer:material_view' material.id %}">{{ recipe.name_str }}</a></td>
+            <td><a href="{% url 'recipe_viewer:recipe-edit-view' recipe.id %}">Edit</a></td>
+            <td><a href="{% url 'recipe_viewer:material-delete-view' material.id %}">Delete</a></td>
+        </tr>
+    {% endfor %}
+    </table>
+{% else %}
+    <p>No recipes exist</p>
+{% endif %}
+<a href="{% url 'recipe_viewer:recipe-create-view' %}">Create Recipe</a>
